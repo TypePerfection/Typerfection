@@ -3,19 +3,21 @@
 
 //! INSTALL BETTER COMMENTS EXTENSION
 // TODO will highlight various comments for better readability
+// * use ctrl + / to comment a line, then use the first chars of these lines for the color
 
-// Allows us to use interactions with the user. 
+//? Allows us to use interactions on the frontend.
 'use client';
 
-// we need to import the image template from the Next library
+//? We need to import the image template from the Next.js library
 import Image from "next/image";
+//? This allows us to update the button clicker using react
 import { useState } from 'react';
 
-// Create a string with the location of the image we want to use.
-// It will default to the public library for its path root.
+//? Create a string with the location of the image we want to use.
+//? It will default to the public library for its path root.
 const image = "/byui.png";
 
-//List of name data for recursion function
+//? List of name data for recursion function
 const list = [
     { id:1, Fname: 'Ethan', Lname: 'Chalupa' },
     { id:2, Fname: 'Dawson', Lname: 'Bauman' },
@@ -23,24 +25,22 @@ const list = [
     { id:4, Fname: 'Rylan', Lname: 'Jurgens' },
 ]
 
-//This is what the the site will load when the URL is called.
-//"export default function" gives it that property.
-//the function name does not matter, in this case it is 'Page'
+//? This is what the the site will load when the URL is called.
+//? "export default function" gives it that property.
+//? the function name does not matter, in this case it is 'Page'
 export default function Page() {
-    //we could run JS logic here before the return.
+    //we could run JS logic like for loops and creating variables here before the return.
 
     //return the HTML that we want to render. We need can only have one top level tag
-    //The top level tag here is main, and it is around everything else.
+    //?The top level tag here is main, and it is around everything else.
     return (
         //use Tailwind css to style page div
         <main className="bg-black text-white h-screen">
-
 
             <h1>Working website test</h1>
 
             {/* import template My button from below */}
             <Mybutton />
-
 
             {/* Style with Tailwind CSS to center */}
             <div className="text-green-500 border-2 border-white mt-2 flex justify-center">
@@ -72,15 +72,18 @@ export default function Page() {
 }
 
 //! Below are components. We can call them in the main function as many times as we want and they will return a bit of HTML
+//?Think of them like windows on your pc's desktop. They are apps that the we can place wherever we want on the screen
 
 function GroupList() {
-    // the map method is a fancy for loop-ish thing that returns an array with the data provided after the '=>'
+    //? the map method is a fancy for loop-ish thing that returns an array with the data provided after the '=>'
     const group = list.map(person =>
+        //? the li tag is a list item
         <li key={person.id}>
             {person.Lname},{person.Fname}
         </li>
     )
     return (
+        //? ul is the daddy of all of the list items
         <ul>{group}</ul>
     )
 
@@ -88,17 +91,18 @@ function GroupList() {
 
 function ColorGroupList(){
     const group =[];
+    //? This is a for loop that adds to an array 'group'. If the user Id is 1, then it returns HTML with blue text.
     for(const person of list){
         if(person.id == 1){
             group.push(
                 <li className="text-blue-400" key={person.id}>
-                    {person.Lname},{person.Fname}
+                    {person.Lname}, {person.Fname}
                 </li>
             );
         } else{
             group.push(
-                <li>
-                    {person.Lname},{person.Fname}
+                <li key={person.id}>
+                    {person.Lname}, {person.Fname}
                 </li>
             );
         }
