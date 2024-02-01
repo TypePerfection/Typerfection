@@ -1,8 +1,18 @@
 import React from "react"
 import { GetServerSideProps } from "next"
 import ReactMarkdown from "react-markdown"
-
 import prisma from '../../lib/prisma';
+
+export type PostProps = {
+    id: string;
+    title: string;
+    author: {
+      name: string;
+      email: string;
+    } | null;
+    content: string;
+    published: boolean;
+  };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const post = await prisma.post.findUnique({
@@ -30,7 +40,7 @@ const Post: React.FC<PostProps> = (props) => {
         <div>
             <h2>{title}</h2>
             <p>By {props?.author?.name || "Unknown author"}</p>
-            <ReactMarkdown children={props.content} />
+            {props.content}
         </div>
     )
 }

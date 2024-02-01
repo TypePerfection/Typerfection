@@ -3,6 +3,17 @@ import { GetStaticProps } from "next"
 import prisma from '../../lib/prisma';
 import Router from "next/router";
 
+export type PostProps = {
+    id: string;
+    title: string;
+    author: {
+      name: string;
+      email: string;
+    } | null;
+    content: string;
+    published: boolean;
+  };
+
 // Made following this tutorial 
 // https://vercel.com/guides/nextjs-prisma-postgres#step-5.-update-the-existing-views-to-load-data-from-the-database
 
