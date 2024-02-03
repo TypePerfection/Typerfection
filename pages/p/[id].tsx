@@ -1,6 +1,5 @@
 import React from "react"
 import { GetServerSideProps } from "next"
-import ReactMarkdown from "react-markdown"
 import prisma from '../../lib/prisma';
 
 export type PostProps = {
