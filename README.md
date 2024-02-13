@@ -47,3 +47,4 @@ and updated every time you update the schema
 npx prisma generate
 ```
 
+garbage!!!
