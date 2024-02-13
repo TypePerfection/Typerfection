@@ -8,9 +8,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Contributers
-
-Ethan Chalupa
 
 
 ## Documentation
@@ -39,7 +36,9 @@ npm install @prisma/client
 and updated every time you update the schema
 ```bash
 npx prisma generate
-```
+``` 
 
-## Contributors 
-Derek made this thing to test 
+## Contributers
+
+Ethan Chalupa
+Derek Ludlow
