@@ -49,4 +49,5 @@ npx prisma generate
 ``` 
 
 ## Contributers
-garbage!!!
+Ethan Chalupa 
+Derek Ludlow
