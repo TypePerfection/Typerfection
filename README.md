@@ -37,3 +37,5 @@ and updated every time you update the schema
 npx prisma generate
 ```
 
+## Contributors 
+Derek made this thing to test 
