@@ -19,10 +19,10 @@ const image = "/byui.png";
 
 //? List of name data for recursion function
 const list = [
-    { id:1, Fname: 'Ethan', Lname: 'Chalupa' },
-    { id:2, Fname: 'Dawson', Lname: 'Bauman' },
-    { id:3, Fname: 'Derek', Lname: 'Ludlow' },
-    { id:4, Fname: 'Rylan', Lname: 'Jurgens' },
+    { id: 1, Fname: 'Ethan', Lname: 'Chalupa' },
+    { id: 2, Fname: 'Dawson', Lname: 'Bauman' },
+    { id: 3, Fname: 'Derek', Lname: 'Ludlow' },
+    { id: 4, Fname: 'Rylan', Lname: 'Jurgens' },
 ]
 
 //? This is what the the site will load when the URL is called.
@@ -35,7 +35,7 @@ export default function Page() {
     //?The top level tag here is main, and it is around everything else.
     return (
         //use Tailwind css to style page div
-        <main className="bg-black text-white h-screen">
+        <div className="bg-black text-white h-full">
 
             <h1>Working website test</h1>
 
@@ -53,7 +53,7 @@ export default function Page() {
             </div>
 
             {/* A different group list with the conditional to make Ethan's name blue */}
-            <ColorGroupList/>
+            <ColorGroupList />
 
             {/* Add BYU-I logo */}
             <div className="flex justify-center">
@@ -66,8 +66,86 @@ export default function Page() {
                     priority
                 />
             </div>
+            <div>
 
-        </main>
+                Expedita non aspernatur ad corrupti magnam deleniti at excepturi. Voluptatem odit aliquam perspiciatis quod qui impedit velit ut. Minima magnam accusamus nostrum rerum nihil quaerat.
+
+                Quae deleniti et vero facere voluptatum. Aut in possimus in repellendus et dolorem magnam. Corporis ea odio quo et sapiente quidem dolor. Explicabo non ut soluta mollitia aspernatur.
+
+                Ipsum est nobis et distinctio repellendus. Beatae veniam veritatis quam. Voluptatibus sit porro et.
+
+                Consectetur atque quae mollitia reprehenderit dolor reprehenderit nihil dolor. Consequuntur placeat necessitatibus voluptas eligendi. Consequuntur ullam vero nesciunt reiciendis est. Voluptas repellendus cupiditate ipsum et.
+
+                Qui ipsa eius iusto similique nisi nisi aut et. Sed perspiciatis laborum in dolorem. Nostrum nostrum eius quos. Aut facere alias cupiditate rem. Nihil fugit odio ut quas aliquid maxime.
+
+
+                Expedita non aspernatur ad corrupti magnam deleniti at excepturi. Voluptatem odit aliquam perspiciatis quod qui impedit velit ut. Minima magnam accusamus nostrum rerum nihil quaerat.
+
+                Quae deleniti et vero facere voluptatum. Aut in possimus in repellendus et dolorem magnam. Corporis ea odio quo et sapiente quidem dolor. Explicabo non ut soluta mollitia aspernatur.
+
+                Ipsum est nobis et distinctio repellendus. Beatae veniam veritatis quam. Voluptatibus sit porro et.
+
+                Consectetur atque quae mollitia reprehenderit dolor reprehenderit nihil dolor. Consequuntur placeat necessitatibus voluptas eligendi. Consequuntur ullam vero nesciunt reiciendis est. Voluptas repellendus cupiditate ipsum et.
+
+                Qui ipsa eius iusto similique nisi nisi aut et. Sed perspiciatis laborum in dolorem. Nostrum nostrum eius quos. Aut facere alias cupiditate rem. Nihil fugit odio ut quas aliquid maxime.
+
+
+                Expedita non aspernatur ad corrupti magnam deleniti at excepturi. Voluptatem odit aliquam perspiciatis quod qui impedit velit ut. Minima magnam accusamus nostrum rerum nihil quaerat.
+
+                Quae deleniti et vero facere voluptatum. Aut in possimus in repellendus et dolorem magnam. Corporis ea odio quo et sapiente quidem dolor. Explicabo non ut soluta mollitia aspernatur.
+
+                Ipsum est nobis et distinctio repellendus. Beatae veniam veritatis quam. Voluptatibus sit porro et.
+
+                Consectetur atque quae mollitia reprehenderit dolor reprehenderit nihil dolor. Consequuntur placeat necessitatibus voluptas eligendi. Consequuntur ullam vero nesciunt reiciendis est. Voluptas repellendus cupiditate ipsum et.
+
+                Qui ipsa eius iusto similique nisi nisi aut et. Sed perspiciatis laborum in dolorem. Nostrum nostrum eius quos. Aut facere alias cupiditate rem. Nihil fugit odio ut quas aliquid maxime.
+
+
+                Expedita non aspernatur ad corrupti magnam deleniti at excepturi. Voluptatem odit aliquam perspiciatis quod qui impedit velit ut. Minima magnam accusamus nostrum rerum nihil quaerat.
+
+                Quae deleniti et vero facere voluptatum. Aut in possimus in repellendus et dolorem magnam. Corporis ea odio quo et sapiente quidem dolor. Explicabo non ut soluta mollitia aspernatur.
+
+                Ipsum est nobis et distinctio repellendus. Beatae veniam veritatis quam. Voluptatibus sit porro et.
+
+                Consectetur atque quae mollitia reprehenderit dolor reprehenderit nihil dolor. Consequuntur placeat necessitatibus voluptas eligendi. Consequuntur ullam vero nesciunt reiciendis est. Voluptas repellendus cupiditate ipsum et.
+
+                Qui ipsa eius iusto similique nisi nisi aut et. Sed perspiciatis laborum in dolorem. Nostrum nostrum eius quos. Aut facere alias cupiditate rem. Nihil fugit odio ut quas aliquid maxime.
+
+
+                Expedita non aspernatur ad corrupti magnam deleniti at excepturi. Voluptatem odit aliquam perspiciatis quod qui impedit velit ut. Minima magnam accusamus nostrum rerum nihil quaerat.
+
+                Quae deleniti et vero facere voluptatum. Aut in possimus in repellendus et dolorem magnam. Corporis ea odio quo et sapiente quidem dolor. Explicabo non ut soluta mollitia aspernatur.
+
+                Ipsum est nobis et distinctio repellendus. Beatae veniam veritatis quam. Voluptatibus sit porro et.
+
+                Consectetur atque quae mollitia reprehenderit dolor reprehenderit nihil dolor. Consequuntur placeat necessitatibus voluptas eligendi. Consequuntur ullam vero nesciunt reiciendis est. Voluptas repellendus cupiditate ipsum et.
+
+                Qui ipsa eius iusto similique nisi nisi aut et. Sed perspiciatis laborum in dolorem. Nostrum nostrum eius quos. Aut facere alias cupiditate rem. Nihil fugit odio ut quas aliquid maxime.
+
+
+                Expedita non aspernatur ad corrupti magnam deleniti at excepturi. Voluptatem odit aliquam perspiciatis quod qui impedit velit ut. Minima magnam accusamus nostrum rerum nihil quaerat.
+
+                Quae deleniti et vero facere voluptatum. Aut in possimus in repellendus et dolorem magnam. Corporis ea odio quo et sapiente quidem dolor. Explicabo non ut soluta mollitia aspernatur.
+
+                Ipsum est nobis et distinctio repellendus. Beatae veniam veritatis quam. Voluptatibus sit porro et.
+
+                Consectetur atque quae mollitia reprehenderit dolor reprehenderit nihil dolor. Consequuntur placeat necessitatibus voluptas eligendi. Consequuntur ullam vero nesciunt reiciendis est. Voluptas repellendus cupiditate ipsum et.
+
+                Qui ipsa eius iusto similique nisi nisi aut et. Sed perspiciatis laborum in dolorem. Nostrum nostrum eius quos. Aut facere alias cupiditate rem. Nihil fugit odio ut quas aliquid maxime.
+
+
+                Expedita non aspernatur ad corrupti magnam deleniti at excepturi. Voluptatem odit aliquam perspiciatis quod qui impedit velit ut. Minima magnam accusamus nostrum rerum nihil quaerat.
+
+                Quae deleniti et vero facere voluptatum. Aut in possimus in repellendus et dolorem magnam. Corporis ea odio quo et sapiente quidem dolor. Explicabo non ut soluta mollitia aspernatur.
+
+                Ipsum est nobis et distinctio repellendus. Beatae veniam veritatis quam. Voluptatibus sit porro et.
+
+                Consectetur atque quae mollitia reprehenderit dolor reprehenderit nihil dolor. Consequuntur placeat necessitatibus voluptas eligendi. Consequuntur ullam vero nesciunt reiciendis est. Voluptas repellendus cupiditate ipsum et.
+
+                Qui ipsa eius iusto similique nisi nisi aut et. Sed perspiciatis laborum in dolorem. Nostrum nostrum eius quos. Aut facere alias cupiditate rem. Nihil fugit odio ut quas aliquid maxime.
+
+            </div>
+        </div>
     );
 }
 
@@ -89,17 +167,17 @@ function GroupList() {
 
 }
 
-function ColorGroupList(){
-    const group =[];
+function ColorGroupList() {
+    const group = [];
     //? This is a for loop that adds to an array 'group'. If the user Id is 1, then it returns HTML with blue text.
-    for(const person of list){
-        if(person.id == 1){
+    for (const person of list) {
+        if (person.id == 1) {
             group.push(
                 <li className="text-blue-400" key={person.id}>
                     {person.Lname}, {person.Fname}
                 </li>
             );
-        } else{
+        } else {
             group.push(
                 <li key={person.id}>
                     {person.Lname}, {person.Fname}
@@ -114,7 +192,7 @@ function ColorGroupList(){
 
 function Mybutton() {
     const [count, setCount] = useState(0);
-    function handleClick(){
+    function handleClick() {
         setCount(count + 1);
     }
 

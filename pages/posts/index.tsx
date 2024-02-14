@@ -44,7 +44,7 @@ const Blog: React.FC<Props> = (props) => {
             <main>
                 {props.feed.map((post) => (
                     <div key={post.id} className="post">
-                        <div onClick={() => Router.push("/p/[id]",`/p/${post.id}`)}>
+                        <div onClick={() => Router.push("/p/[id]", `/p/${post.id}`)}>
                             {post.title}
                         </div>
                     </div>
