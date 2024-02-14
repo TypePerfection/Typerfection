@@ -35,7 +35,7 @@ export default function Page() {
     //?The top level tag here is main, and it is around everything else.
     return (
         //use Tailwind css to style page div
-        <main className="bg-black text-white h-full">
+        <div className="bg-black text-white h-full">
 
             <h1>Working website test</h1>
 
@@ -145,7 +145,7 @@ export default function Page() {
                 Qui ipsa eius iusto similique nisi nisi aut et. Sed perspiciatis laborum in dolorem. Nostrum nostrum eius quos. Aut facere alias cupiditate rem. Nihil fugit odio ut quas aliquid maxime.
 
             </div>
-        </main>
+        </div>
     );
 }
 
