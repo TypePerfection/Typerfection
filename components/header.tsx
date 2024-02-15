@@ -9,10 +9,9 @@ function Header() {
     ]
     const image = "/keyboard.svg";
 
-
     const linkList = links.map(link =>
         <div key={link.title} className="hover:bg-slate-50 h-full flex w-20 text-white hover:text-violet-600">
-            <Link className="m-auto  text-xl font-mono" href={link.url}>{link.title}</Link>
+            <Link className="m-auto text-xl font-mono" href={link.url}>{link.title}</Link>
         </div>
     )
     return (
@@ -20,7 +19,7 @@ function Header() {
             <Link href="/">
                 <img src={image} className="h-10"></img>
             </Link>
-
+            
             {linkList}
         </nav>
     )
