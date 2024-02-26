@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const KeyboardListener = () => {
   const [pressedKey, setPressedKey] = useState(null);
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = (event: any) => {
     setPressedKey(event.key);
   }
 
