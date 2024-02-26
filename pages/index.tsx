@@ -8,6 +8,7 @@
 //? Allows us to use interactions on the frontend.
 'use client';
 
+import KeyboardListener from '@/components/button'
 //? We need to import the image template from the Next.js library
 import Image from "next/image";
 //? This allows us to update the button clicker using react
@@ -38,6 +39,10 @@ export default function Page() {
         <div className="bg-black text-white h-full">
 
             <h1>Working website test</h1>
+            <div className="text-red-600 border-lime-400">
+                <KeyboardListener/>
+            </div>
+            
 
             {/* import template My button from below */}
             <Mybutton />
