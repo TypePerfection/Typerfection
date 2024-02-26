@@ -16,6 +16,10 @@ const KeyboardListener = () => {
     }
   }, []) // Empty dependency array means this effect runs only once after the component mounts
 
+  if(pressedKey == "i"){
+    alert("Button is i!")
+  }
+  
   return (
     <div>
       <h1>Press a Key</h1>
