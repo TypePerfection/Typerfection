@@ -12,6 +12,9 @@
 import Image from "next/image";
 //? This allows us to update the button clicker using react
 import { useState } from 'react';
+import button from "@/components/XButton"
+import XButton from "@/components/XButton";
+
 
 //? Create a string with the location of the image we want to use.
 //? It will default to the public library for its path root.
@@ -38,6 +41,9 @@ export default function Page() {
         <div className="bg-black text-white h-full">
 
             <h1>Working website test</h1>
+            <div className="py-2">
+                <XButton onClick={() => alert('You Clicked!')} text="Popup" />
+            </div>
 
 
             {/* import template My button from below */}
