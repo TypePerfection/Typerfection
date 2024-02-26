@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-function Header() {
+function NavBar() {
     const links: { title: string; url: string; }[] = [
         { title: "Google", url: "https://www.google.com" },
         { title: "Posts", url: "posts" },
@@ -24,4 +24,4 @@ function Header() {
         </nav>
     )
 }
-export default Header;
+export default NavBar;

@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import Header from '@/components/header'
+import NavBar from '@/components/NavBar'
 
 export default function Document() {
   return (
@@ -8,7 +8,7 @@ export default function Document() {
       <header>
       </header>
       <body className='block'>
-        <Header/>
+        <NavBar/>
         <div>
           <Main />
         </div>
