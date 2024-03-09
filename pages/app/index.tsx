@@ -105,12 +105,12 @@ const app = () => {
     }, [pressedKeys]);
 
     return (
-        <div>
+        <div className=''>
             <div className='whitespace-pre-wrap'>
                 <Text inputText={text} pressedKeys={pressedKeys} />
             </div>
 
-            <div>
+            <div className='max-w-7xl mx-auto p-auto'>
                 <Row list={row1} pressedKeys={pressedKeys} />
                 <Row list={row2} pressedKeys={pressedKeys} />
                 <Row list={row3} pressedKeys={pressedKeys} />
@@ -129,34 +129,34 @@ function Text({ inputText, pressedKeys }: { inputText: string, pressedKeys: neve
     let splitText: string[] = inputText.split(' ').map(word => word + ' ')
     let output: React.JSX.Element[] = []
 
-    if(pressedKeys.includes(splitText[wordPos][charPos])){
-        if(charPos < splitText[wordPos].length - 1){
+    if (pressedKeys.includes(splitText[wordPos][charPos])) {
+        if (charPos < splitText[wordPos].length - 1) {
             charPos++
-        }else{
+        } else {
             charPos = 0
             wordPos++
         }
     }
-    
+
     for (let i = 0; i < splitText.length; i++) {
-        if(i == wordPos){
+        if (i == wordPos) {
             let loopOutput: React.JSX.Element[] = []
-            for(let j = 0; j < splitText[i].length; j++){
-                if(j == charPos){
+            for (let j = 0; j < splitText[i].length; j++) {
+                if (j == charPos) {
                     loopOutput.push(<div className='bg-blue-300'>{splitText[i][j]}</div>)
-                }else{
+                } else {
                     loopOutput.push(<div className='bg-gray-200'>{splitText[i][j]}</div>)
                 }
             }
             output.push(loopOutput)
-        }else{
-            for(let j = 0; j < splitText[i].length; j++){
+        } else {
+            for (let j = 0; j < splitText[i].length; j++) {
                 output.push(<div className=''>{splitText[i][j]}</div>)
             }
         }
     }
     return (
-        <div className='flex flex-wrap whitespace-break-spaces w-full'>
+        <div className='flex flex-wrap whitespace-break-spaces max-w-7xl mx-auto'>
             {output}
         </div>
     )
@@ -170,7 +170,7 @@ function Row({ list, pressedKeys }: { list: string[][], pressedKeys: never[] }) 
     for (let item of list) {
         if (pressedKeys.includes(item[0]) || pressedKeys.includes(item[0].toUpperCase()) || pressedKeys.includes(item[1])) {
             keys.push(
-                <div key={item[0]} className='rounded-md w-10 border border-1  bg-green-500'>
+                <div key={item[0]} className='rounded-md w-10 border border-1 bg-green-500'>
                     <div className='flex justify-end'>
                         {item[1]}
                     </div>
@@ -199,12 +199,12 @@ function Row({ list, pressedKeys }: { list: string[][], pressedKeys: never[] }) 
 
         // }
     }
-
-
     return (
-        <div className='flex gap-2'>
+
+        <div className='flex gap-2 mx-auto'>
             {keys}
         </div>
+
     )
 
 }
