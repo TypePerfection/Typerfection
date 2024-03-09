@@ -15,10 +15,6 @@ const KeyboardListener = () => {
       window.removeEventListener('keydown', handleKeyPress);
     }
   }, []) // Empty dependency array means this effect runs only once after the component mounts
-
-  if(pressedKey == "i"){
-    alert("Button is i!")
-  }
   
   return (
     <div>

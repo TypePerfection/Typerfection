@@ -3,9 +3,8 @@ import Link from "next/link";
 
 function NavBar() {
     const links: { title: string; url: string; }[] = [
-        { title: "Google", url: "https://www.google.com" },
         { title: "Posts", url: "posts" },
-        { title: "BYU-I", url: "https://www.BYUI.edu" },
+        { title: "App", url: "app" },
     ]
     const image = "/keyboard.svg";
 
