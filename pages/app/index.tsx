@@ -61,7 +61,7 @@ const row4 = [
     ['/', '?']
 ];
 
-// these need to be global, so that both Text and Row can see them
+// these need to be global, so that Text, Row, and the Statistics functions can see them
 let wordPos = 0
 let charPos = 0
 

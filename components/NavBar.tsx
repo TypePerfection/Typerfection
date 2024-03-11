@@ -3,9 +3,9 @@ import Link from "next/link";
 
 function NavBar() {
     const links: { title: string; url: string; }[] = [
-        { title: "Posts", url: "posts" },
-        { title: "Components", url: "compShowcase" },
-        { title: "App", url: "app" },
+        { title: "Posts", url: "/posts" },
+        { title: "Components", url: "/compShowcase" },
+        { title: "App", url: "/app" },
     ]
     const image = "/keyboard.svg";
 
