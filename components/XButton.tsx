@@ -4,7 +4,7 @@ function XButton({ onClick, text = '', width = 100, height = 30 }) {
         height: height,
     }
     return (
-        <button onClick={onClick} style={buttonStyle} className="bg-sky-950 flex justify-center items-center rounded outline outline-1 outline-white font-bold">{text}</button>
+        <button onClick={onClick} style={buttonStyle} className="bg-sky-950 text-white flex justify-center items-center rounded outline outline-1 outline-white">{text}</button>
     )
 }
 export default XButton;
