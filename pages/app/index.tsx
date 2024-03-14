@@ -61,11 +61,23 @@ const row4 = [
     ['/', '?']
 ];
 
+const row5 = [
+    
+    ['space'],
+
+
+]
+
 // these need to be global, so that Text, Row, and the Statistics functions can see them
 let wordPos = 0
 let charPos = 0
 
 var timeArray = []
+
+//! uno problemo, the keys update too fast, so the user never sees that they pressed the right key.
+//! Solution: set the keyboard to only update when the user presses a key,
+//TODO Make a display array, that 
+
 
 
 const app = () => {
@@ -119,10 +131,21 @@ const app = () => {
             </div>
 
             <div className='max-w-7xl mx-auto p-auto'>
-                <Row list={row1} pressedKeys={pressedKeys} inputText={text} />
-                <Row list={row2} pressedKeys={pressedKeys} inputText={text} />
-                <Row list={row3} pressedKeys={pressedKeys} inputText={text} />
-                <Row list={row4} pressedKeys={pressedKeys} inputText={text} />
+                <div className='mx-auto flex justify-center'>
+                    <Row list={row1} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+                <div className='mx-auto flex justify-center'>
+                    <Row list={row2} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+                <div className='mx-auto flex justify-center'>
+                    <Row list={row3} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+                <div className='mx-auto flex justify-center'>
+                    <Row list={row4} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+                <div className='mx-auto flex justify-center'>
+                    <Row list={row5} pressedKeys={pressedKeys} inputText={text} />
+                </div>
             </div>
         </div>
     )
@@ -137,7 +160,7 @@ function splitText(inputText: string) {
     return inputText.split(' ').map(word => word + ' ')
 }
 
-function changeWord(){
+function changeWord() {
     const d = Date.now()
     timeArray.push(d)
     charPos = 0
@@ -186,17 +209,18 @@ function Row({ list, pressedKeys, inputText }: { list: string[][], pressedKeys: 
     let keys = []
     let textArray = splitText(inputText)
 
-    function Key({ desiredColor, item }) {
-        const colors = [
-            ["red","rounded-md w-10 border border-1 bg-red-500"],
-            ["blue","rounded-md w-10 border border-1 bg-blue-500"],
-            ["green","rounded-md w-10 border border-1 bg-green-500"],
+    function Key({ color = '', item }) {
+        const colorsList = [
+            ['', "rounded-md w-10 border border-1 border-gray-400 bg-gray-200"],
+            ["red", "rounded-md w-10 border border-1 border-gray-400 bg-red-300"],
+            ["blue", "rounded-md w-10 border border-1 border-gray-400 bg-blue-300"],
+            ["green", "rounded-md w-10 border border-1 border-gray-400 bg-green-300"],
         ]
         var cssTemplate = ""
-        
-        for(const color of colors){
-            if (color[0] == desiredColor){
-                cssTemplate = color[1]
+
+        for (const item of colorsList) {
+            if (item[0] == color) {
+                cssTemplate = item[1]
             }
         }
 
@@ -206,7 +230,7 @@ function Row({ list, pressedKeys, inputText }: { list: string[][], pressedKeys: 
                     {item[1]}
                 </div>
 
-                <div className='m-auto'>
+                <div className='pl-1'>
                     {item[0]}
                 </div>
             </div>
@@ -214,25 +238,22 @@ function Row({ list, pressedKeys, inputText }: { list: string[][], pressedKeys: 
     }
 
     for (let item of list) {
-        if ((pressedKeys.includes(item[0]) || pressedKeys.includes(item[0].toUpperCase())   || pressedKeys.includes(item[0].toLowerCase() || pressedKeys.includes(item[1])) && item.includes(textArray[wordPos][charPos]))){
+        if ((pressedKeys.includes(item[0]) || pressedKeys.includes(item[0].toUpperCase()) || pressedKeys.includes(item[0].toLowerCase() || pressedKeys.includes(item[1])) && item.includes(textArray[wordPos][charPos]))) {
             keys.push(
-                <Key desiredColor={"green"} item={item} />
+                <Key color={"red"} item={item} />
             )
-        } else if (item.includes(textArray[wordPos][charPos]) || item.includes(textArray[wordPos][charPos].toLowerCase())) {
+        } else if ((item.includes(textArray[wordPos][charPos]) || item.includes(textArray[wordPos][charPos].toLowerCase())) && pressedKeys.includes(item[0])) {
+            <Key color={"green"} item={item} />
+
+        }
+        else if (item.includes(textArray[wordPos][charPos]) || item.includes(textArray[wordPos][charPos].toLowerCase())) {
             keys.push(
-               <Key desiredColor={"blue"} item={item} />
+                <Key color={"blue"} item={item} />
             )
         } else {
             keys.push(
-                <div key={item[0]} className='w-10 border border-1'>
-                    <div className='flex justify-end'>
-                        {item[1]}
-                    </div>
+                <Key item={item} />
 
-                    <div className='m-auto'>
-                        {item[0]}
-                    </div>
-                </div>
             )
         }
     }
