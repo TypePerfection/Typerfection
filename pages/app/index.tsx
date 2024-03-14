@@ -61,9 +61,23 @@ const row4 = [
     ['/', '?']
 ];
 
+const row5 = [
+    
+    ['space'],
+
+
+]
+
 // these need to be global, so that Text, Row, and the Statistics functions can see them
 let wordPos = 0
 let charPos = 0
+
+var timeArray = []
+
+//! uno problemo, the keys update too fast, so the user never sees that they pressed the right key.
+//! Solution: set the keyboard to only update when the user presses a key,
+//TODO Make a display array, that 
+
 
 
 const app = () => {
@@ -91,8 +105,14 @@ const app = () => {
         const handleKeyUp = (event) => {
             const { key } = event;
             setPressedKeys((prevPressedKeys) =>
-                prevPressedKeys.filter((pressedKey) => pressedKey !== key)
+                prevPressedKeys.filter(removeKey)
             );
+            function removeKey(pressedKey: any) {
+                pressedKey !== key
+                pressedKey !== key.toUpperCase()
+                pressedKey !== key.toLowerCase()
+            }
+
         };
 
         document.addEventListener('keydown', handleKeyDown);
@@ -111,10 +131,21 @@ const app = () => {
             </div>
 
             <div className='max-w-7xl mx-auto p-auto'>
-                <Row list={row1} pressedKeys={pressedKeys} />
-                <Row list={row2} pressedKeys={pressedKeys} />
-                <Row list={row3} pressedKeys={pressedKeys} />
-                <Row list={row4} pressedKeys={pressedKeys} />
+                <div className='mx-auto flex justify-center'>
+                    <Row list={row1} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+                <div className='mx-auto flex justify-center'>
+                    <Row list={row2} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+                <div className='mx-auto flex justify-center'>
+                    <Row list={row3} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+                <div className='mx-auto flex justify-center'>
+                    <Row list={row4} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+                <div className='mx-auto flex justify-center'>
+                    <Row list={row5} pressedKeys={pressedKeys} inputText={text} />
+                </div>
             </div>
         </div>
     )
@@ -125,33 +156,43 @@ const app = () => {
 // Keep track of which word the user is on, then use the cursorPos to track which char they are on.
 // When a word is done, move the cursor to the next word, 
 
+function splitText(inputText: string) {
+    return inputText.split(' ').map(word => word + ' ')
+}
+
+function changeWord() {
+    const d = Date.now()
+    timeArray.push(d)
+    charPos = 0
+    wordPos++
+}
+
 function Text({ inputText, pressedKeys }: { inputText: string, pressedKeys: never[] }) {
-    let splitText: string[] = inputText.split(' ').map(word => word + ' ')
+    let textArray: string[] = splitText(text)
     let output: React.JSX.Element[] = []
 
-    if (pressedKeys.includes(splitText[wordPos][charPos])) {
-        if (charPos < splitText[wordPos].length - 1) {
+    if (pressedKeys.includes(textArray[wordPos][charPos])) {
+        if (charPos < textArray[wordPos].length - 1) {
             charPos++
         } else {
-            charPos = 0
-            wordPos++
+            changeWord()
         }
     }
 
-    for (let i = 0; i < splitText.length; i++) {
+    for (let i = 0; i < textArray.length; i++) {
         if (i == wordPos) {
             let loopOutput: React.JSX.Element[] = []
-            for (let j = 0; j < splitText[i].length; j++) {
+            for (let j = 0; j < textArray[i].length; j++) {
                 if (j == charPos) {
-                    loopOutput.push(<div className='bg-blue-300'>{splitText[i][j]}</div>)
+                    loopOutput.push(<div className='bg-blue-300'>{textArray[i][j]}</div>)
                 } else {
-                    loopOutput.push(<div className='bg-gray-200'>{splitText[i][j]}</div>)
+                    loopOutput.push(<div className='bg-gray-200'>{textArray[i][j]}</div>)
                 }
             }
             output.push(loopOutput)
         } else {
-            for (let j = 0; j < splitText[i].length; j++) {
-                output.push(<div className=''>{splitText[i][j]}</div>)
+            for (let j = 0; j < textArray[i].length; j++) {
+                output.push(<div className=''>{textArray[i][j]}</div>)
             }
         }
     }
@@ -164,40 +205,57 @@ function Text({ inputText, pressedKeys }: { inputText: string, pressedKeys: neve
 
 // TODO Restyle this, it looks like trash (I want to get the logic down rn)
 
-function Row({ list, pressedKeys }: { list: string[][], pressedKeys: never[] }) {
+function Row({ list, pressedKeys, inputText }: { list: string[][], pressedKeys: never[], inputText: string }) {
     let keys = []
+    let textArray = splitText(inputText)
+
+    function Key({ color = '', item }) {
+        const colorsList = [
+            ['', "rounded-md w-10 border border-1 border-gray-400 bg-gray-200"],
+            ["red", "rounded-md w-10 border border-1 border-gray-400 bg-red-300"],
+            ["blue", "rounded-md w-10 border border-1 border-gray-400 bg-blue-300"],
+            ["green", "rounded-md w-10 border border-1 border-gray-400 bg-green-300"],
+        ]
+        var cssTemplate = ""
+
+        for (const item of colorsList) {
+            if (item[0] == color) {
+                cssTemplate = item[1]
+            }
+        }
+
+        return (
+            <div key={item[0]} className={cssTemplate}>
+                <div className='flex justify-end'>
+                    {item[1]}
+                </div>
+
+                <div className='pl-1'>
+                    {item[0]}
+                </div>
+            </div>
+        )
+    }
 
     for (let item of list) {
-        if (pressedKeys.includes(item[0]) || pressedKeys.includes(item[0].toUpperCase()) || pressedKeys.includes(item[1])) {
+        if ((pressedKeys.includes(item[0]) || pressedKeys.includes(item[0].toUpperCase()) || pressedKeys.includes(item[0].toLowerCase() || pressedKeys.includes(item[1])) && item.includes(textArray[wordPos][charPos]))) {
             keys.push(
-                <div key={item[0]} className='rounded-md w-10 border border-1 bg-green-500'>
-                    <div className='flex justify-end'>
-                        {item[1]}
-                    </div>
+                <Key color={"red"} item={item} />
+            )
+        } else if ((item.includes(textArray[wordPos][charPos]) || item.includes(textArray[wordPos][charPos].toLowerCase())) && pressedKeys.includes(item[0])) {
+            <Key color={"green"} item={item} />
 
-                    <div className='m-auto'>
-                        {item[0]}
-                    </div>
-                </div>
+        }
+        else if (item.includes(textArray[wordPos][charPos]) || item.includes(textArray[wordPos][charPos].toLowerCase())) {
+            keys.push(
+                <Key color={"blue"} item={item} />
             )
         } else {
             keys.push(
-                <div key={item[0]} className='w-10 border border-1'>
-                    <div className='flex justify-end'>
-                        {item[1]}
-                    </div>
+                <Key item={item} />
 
-                    <div className='m-auto'>
-                        {item[0]}
-                    </div>
-                </div>
             )
         }
-        // else if(){
-
-        // }else if(){
-
-        // }
     }
     return (
 
