@@ -6,6 +6,7 @@ function NavBar() {
         { title: "Posts", url: "/posts" },
         { title: "Components", url: "/compShowcase" },
         { title: "App", url: "/app" },
+        { title: "SignUp", url: "/signUp"},
     ]
     const image = "/keyboard.svg";
 
