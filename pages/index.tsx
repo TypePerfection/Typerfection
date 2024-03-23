@@ -13,8 +13,12 @@ import KeyboardListener from '@/components/KeyboardListener'
 import Image from "next/image";
 //? This allows us to update the button clicker using react
 import { useState } from 'react';
-import button from "@/components/XButton"
-import XButton from "@/components/XButton";
+import button from "@/components/Inputs/XButton"
+import XButton from "@/components/Inputs/XButton";
+
+import { signOut, useSession } from 'next-auth/react';
+import Layout from '@/components/Layout/Layout';
+
 
 
 //? Create a string with the location of the image we want to use.
@@ -29,16 +33,21 @@ const list = [
     { id: 4, Fname: 'Rylan', Lname: 'Jurgens' },
 ]
 
+
 //? This is what the the site will load when the URL is called.
 //? "export default function" gives it that property.
 //? the function name does not matter, in this case it is 'Page'
 export default function Page() {
+    const { data: session, status } = useSession();
+    
+    
     //we could run JS logic like for loops and creating variables here before the return.
 
     //return the HTML that we want to render. We need can only have one top level tag
     //?The top level tag here is main, and it is around everything else.
     return (
         //use Tailwind css to style page div
+        <Layout>
         <div className="bg-black text-white h-full">
 
             <h1>Working website test</h1>
@@ -158,6 +167,7 @@ export default function Page() {
 
             </div>
         </div>
+        </Layout>
     );
 }
 
