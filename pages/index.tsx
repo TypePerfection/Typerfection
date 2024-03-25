@@ -9,6 +9,8 @@
 'use client';
 
 import KeyboardListener from '@/components/KeyboardListener'
+//? Import our paragrph from lorem-ipsum file
+import ParagraphGenerator from '@/components/lorem-ipsum';
 //? We need to import the image template from the Next.js library
 import Image from "next/image";
 //? This allows us to update the button clicker using react
@@ -77,6 +79,9 @@ export default function Page() {
                     height={80}
                     priority
                 />
+            </div>
+            <div>
+                <ParagraphGenerator/>
             </div>
             <div>
 
