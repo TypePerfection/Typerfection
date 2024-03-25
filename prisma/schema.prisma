@@ -68,3 +68,16 @@ model VerificationToken {
   @@unique([identifier, token])
   
 }
+
+model TestingText {
+  id        String @id @default(cuid())
+  levelId   String
+  level     Level  @relation(fields: [levelId], references: [id])
+  paragraph String
+}
+
+model Level {
+  id    String        @id @default(cuid())
+  name  String
+  texts TestingText[]
+}
