@@ -1,3 +1,4 @@
+import Layout from '@/components/Layout/Layout';
 import React, { useState, useEffect } from 'react';
 
 const text = "Bacon ipsum dolor amet picanha ut duis minim ea, proident in short loin sint fugiat alcatra do ball tip labore. Cupim ham hock short loin ground round sed irure, pork chop minim porchetta voluptate. Nostrud consectetur ham culpa id tri-tip turducken ribeye magna reprehenderit velit meatloaf beef. Do nisi in doner porchetta aute, ullamco tri-tip kielbasa picanha."
@@ -62,7 +63,7 @@ const row4 = [
 ];
 
 const row5 = [
-    
+
     ['space'],
 
 
@@ -125,29 +126,31 @@ const app = () => {
     }, [pressedKeys]);
 
     return (
-        <div className=''>
-            <div className='whitespace-pre-wrap'>
-                <Text inputText={text} pressedKeys={pressedKeys} />
-            </div>
+        <Layout>
+            <div className=''>
+                <div className='whitespace-pre-wrap'>
+                    <Text inputText={text} pressedKeys={pressedKeys} />
+                </div>
 
-            <div className='max-w-7xl mx-auto p-auto'>
-                <div className='mx-auto flex justify-center'>
-                    <Row list={row1} pressedKeys={pressedKeys} inputText={text} />
-                </div>
-                <div className='mx-auto flex justify-center'>
-                    <Row list={row2} pressedKeys={pressedKeys} inputText={text} />
-                </div>
-                <div className='mx-auto flex justify-center'>
-                    <Row list={row3} pressedKeys={pressedKeys} inputText={text} />
-                </div>
-                <div className='mx-auto flex justify-center'>
-                    <Row list={row4} pressedKeys={pressedKeys} inputText={text} />
-                </div>
-                <div className='mx-auto flex justify-center'>
-                    <Row list={row5} pressedKeys={pressedKeys} inputText={text} />
+                <div className='max-w-7xl mx-auto p-auto'>
+                    <div className='mx-auto flex justify-center'>
+                        <Row list={row1} pressedKeys={pressedKeys} inputText={text} />
+                    </div>
+                    <div className='mx-auto flex justify-center'>
+                        <Row list={row2} pressedKeys={pressedKeys} inputText={text} />
+                    </div>
+                    <div className='mx-auto flex justify-center'>
+                        <Row list={row3} pressedKeys={pressedKeys} inputText={text} />
+                    </div>
+                    <div className='mx-auto flex justify-center'>
+                        <Row list={row4} pressedKeys={pressedKeys} inputText={text} />
+                    </div>
+                    <div className='mx-auto flex justify-center'>
+                        <Row list={row5} pressedKeys={pressedKeys} inputText={text} />
+                    </div>
                 </div>
             </div>
-        </div>
+        </Layout>
     )
 }
 

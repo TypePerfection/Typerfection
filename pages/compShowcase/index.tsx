@@ -1,6 +1,6 @@
-import XText from "@/components/XText";
-import XButton from "@/components/XButton";
-import XInputField from "@/components/XInputField";
+import XText from "@/components/Inputs/XText";
+import XButton from "@/components/Inputs/XButton";
+import XInputField from "@/components/Inputs/XInputField";
 
 export default function showcase() {
     return (
