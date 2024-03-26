@@ -1,4 +1,6 @@
 import Layout from '@/components/Layout/Layout';
+import Link from 'next/link';
+import { Router, useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 
 // const text = "Bacon ipsum dolor amet picanha ut duis minim ea, proident in short loin sint fugiat alcatra do ball tip labore. Cupim ham hock short loin ground round sed irure, pork chop minim porchetta voluptate. Nostrud consectetur ham culpa id tri-tip turducken ribeye magna reprehenderit velit meatloaf beef. Do nisi in doner porchetta aute, ullamco tri-tip kielbasa picanha."
@@ -69,6 +71,8 @@ const row5 = [
     ['space'],
 ]
 
+
+
 // these need to be global, so that Text, Row, and the Statistics functions can see them
 let wordPos = 0
 let charPos = 0
@@ -81,13 +85,6 @@ var timeArray: any = []
 var accuracy: number[] = []
 var alreadyWrong: boolean = false
 
-
-//! uno problemo, the keys update too fast, so the user never sees that they pressed the right key.
-//! Solution: set the keyboard to only update when the user presses a key,
-//TODO Make a display array, that 
-
-
-
 const app = () => {
 
     const [pressedKeys, setPressedKeys] = useState([])
@@ -99,15 +96,13 @@ const app = () => {
     //The React DOM chooses when to update, based on updates it senses. 
     //While not explicetly stated, React DOM should update every time a key is pressed. 
     //Sometimes the DOM does not update when you tell it to, but our app should not have issues with that.
-
-    //TODO There is a bug where pressing a key then pressing shift or caps lock does not remove that key from pressedKeys
-    //TODO      The solution to this might be to make pressedKeys store/check input using the pairs I list above.
     useEffect(() => {
         const handleKeyDown = (event) => {
             const { key } = event;
             if (!pressedKeys.includes(key)) {
                 setPressedKeys((prevPressedKeys) => [...prevPressedKeys, key])
                 checkAccuracy(key)
+                // alert(key)
             }
         };
 
@@ -125,14 +120,16 @@ const app = () => {
         };
 
         function checkAccuracy(key: any) {
-            // alert([textArray[wordPos][charPos], key])
-            if (textArray[wordPos][charPos] == key) {
-                accuracy.push(1)
-                alreadyWrong = false
-            } else {
-                if (!alreadyWrong) {
-                    alreadyWrong = true
-                    accuracy.push(0)
+            const specialKeys = ['Shift', 'CapsLock']
+            if (!specialKeys.includes(key)) {
+                if (textArray[wordPos][charPos] == key) {
+                    accuracy.push(1)
+                    alreadyWrong = false
+                } else {
+                    if (!alreadyWrong) {
+                        alreadyWrong = true
+                        accuracy.push(0)
+                    }
                 }
             }
         }
@@ -182,28 +179,27 @@ function changeWord() {
 }
 
 function aggregateAccruacy() {
-    // I felt smart when I wrote this leet code lookin code, ok?
     let falseCounter = accuracy.filter(item => item == 0).length
     let trueCounter = accuracy.filter(item => item == 1).length
 
-    return  ((1 - falseCounter / trueCounter)*100).toFixed(2)
+    return ((1 - falseCounter / trueCounter) * 100).toFixed(2)
 }
 
-function aggregateWPM(){
+function aggregateWPM() {
     let diffArray = []
     let msAverage = 0
 
     //skip first item in loop
     //this is a for loop instead of a .map() because I need 'i'
-    for(let i = 1; i < timeArray.length; i++){
-        diffArray.push(timeArray[i] - timeArray[i-1])
+    for (let i = 1; i < timeArray.length; i++) {
+        diffArray.push(timeArray[i] - timeArray[i - 1])
     }
 
     //inline average the values in diffArray
     // I felt smart when I wrote this leet code lookin code, ok?
-    diffArray.filter(item => msAverage += item/diffArray.length)
-    return (60/(msAverage/1000)).toFixed(2)
-    
+    diffArray.filter(item => msAverage += item / diffArray.length)
+    return (60 / (msAverage / 1000)).toFixed(2)
+
 }
 
 //components
@@ -224,10 +220,10 @@ function Text({ inputText, pressedKeys }: { inputText: string, pressedKeys: neve
             let loopOutput: React.JSX.Element[] = []
             for (let j = 0; j < textArray[i].length; j++) {
                 if (j == charPos) {
-                    if(alreadyWrong == true){
+                    if (alreadyWrong == true) {
                         loopOutput.push(<div className='bg-red-300'>{textArray[i][j]}</div>)
 
-                    }else{
+                    } else {
                         loopOutput.push(<div className='bg-blue-300'>{textArray[i][j]}</div>)
                     }
                 } else {
@@ -339,8 +335,12 @@ function KeyboardDisplay(pressedKeys: never[]) {
 function EndScreen() {
     const accuracyPercentage = aggregateAccruacy()
     const accuracyData = accuracy.map(item => (<div>{item}</div>))
-    
+
     const wpmAverage = aggregateWPM()
+    const router = useRouter()
+    function reload(){
+        router.reload()
+    }
     return (
         <div>
             <div>
@@ -353,6 +353,9 @@ function EndScreen() {
                 </div>
                 <div>
                     Average WPM: {wpmAverage}
+                </div>
+                <div className='m-1'>
+                    <button onClick={reload} className='bg-sky-950 text-white flex justify-center items-center rounded outline outline-1 outline-white p-1'>Retry</button>
                 </div>
             </div>
         </div>
