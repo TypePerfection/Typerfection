@@ -1,6 +1,6 @@
 import React from "react"
 import { GetStaticProps } from "next"
-import prisma from '../../lib/prisma';
+import prisma from '../../../lib/prisma';
 import Router from "next/router";
 
 export type PostProps = {
