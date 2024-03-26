@@ -1,7 +1,10 @@
 import Layout from '@/components/Layout/Layout';
 import React, { useState, useEffect } from 'react';
 
-const text = "Bacon ipsum dolor amet picanha ut duis minim ea, proident in short loin sint fugiat alcatra do ball tip labore. Cupim ham hock short loin ground round sed irure, pork chop minim porchetta voluptate. Nostrud consectetur ham culpa id tri-tip turducken ribeye magna reprehenderit velit meatloaf beef. Do nisi in doner porchetta aute, ullamco tri-tip kielbasa picanha."
+// const text = "Bacon ipsum dolor amet picanha ut duis minim ea, proident in short loin sint fugiat alcatra do ball tip labore. Cupim ham hock short loin ground round sed irure, pork chop minim porchetta voluptate. Nostrud consectetur ham culpa id tri-tip turducken ribeye magna reprehenderit velit meatloaf beef. Do nisi in doner porchetta aute, ullamco tri-tip kielbasa picanha."
+
+const text = "Bacon ipsum dolor amet"
+let textArray: string[] = splitText(text)
 
 const row1 = [
     ['`', '~'],
@@ -63,17 +66,21 @@ const row4 = [
 ];
 
 const row5 = [
-
     ['space'],
-
-
 ]
 
 // these need to be global, so that Text, Row, and the Statistics functions can see them
 let wordPos = 0
 let charPos = 0
 
-var timeArray = []
+var completed = false
+
+//statistics
+var timeArray: any = []
+//when a user presses a key, check if that is the right key. 
+var accuracy: number[] = []
+var alreadyWrong: boolean = false
+
 
 //! uno problemo, the keys update too fast, so the user never sees that they pressed the right key.
 //! Solution: set the keyboard to only update when the user presses a key,
@@ -99,7 +106,8 @@ const app = () => {
         const handleKeyDown = (event) => {
             const { key } = event;
             if (!pressedKeys.includes(key)) {
-                setPressedKeys((prevPressedKeys) => [...prevPressedKeys, key]);
+                setPressedKeys((prevPressedKeys) => [...prevPressedKeys, key])
+                checkAccuracy(key)
             }
         };
 
@@ -116,6 +124,19 @@ const app = () => {
 
         };
 
+        function checkAccuracy(key: any) {
+            // alert([textArray[wordPos][charPos], key])
+            if (textArray[wordPos][charPos] == key) {
+                accuracy.push(1)
+                alreadyWrong = false
+            } else {
+                if (!alreadyWrong) {
+                    alreadyWrong = true
+                    accuracy.push(0)
+                }
+            }
+        }
+
         document.addEventListener('keydown', handleKeyDown);
         document.addEventListener('keyup', handleKeyUp);
 
@@ -125,37 +146,22 @@ const app = () => {
         };
     }, [pressedKeys]);
 
+    let output = null
+    if (!completed) {
+        output = KeyboardDisplay(pressedKeys)
+    } else {
+        output = EndScreen()
+    }
+
     return (
         <Layout>
-            <div className=''>
-                <div className='whitespace-pre-wrap'>
-                    <Text inputText={text} pressedKeys={pressedKeys} />
-                </div>
-
-                <div className='max-w-7xl mx-auto p-auto'>
-                    <div className='mx-auto flex justify-center'>
-                        <Row list={row1} pressedKeys={pressedKeys} inputText={text} />
-                    </div>
-                    <div className='mx-auto flex justify-center'>
-                        <Row list={row2} pressedKeys={pressedKeys} inputText={text} />
-                    </div>
-                    <div className='mx-auto flex justify-center'>
-                        <Row list={row3} pressedKeys={pressedKeys} inputText={text} />
-                    </div>
-                    <div className='mx-auto flex justify-center'>
-                        <Row list={row4} pressedKeys={pressedKeys} inputText={text} />
-                    </div>
-                    <div className='mx-auto flex justify-center'>
-                        <Row list={row5} pressedKeys={pressedKeys} inputText={text} />
-                    </div>
-                </div>
-            </div>
+            {output}
         </Layout>
     )
 }
 
 //? The plan
-// Split the words up, with snetence ends keeping their punctuation as part of their "word", and a space.
+// Split the words up, with sentence ends keeping their punctuation as part of their "word", and a space.
 // Keep track of which word the user is on, then use the cursorPos to track which char they are on.
 // When a word is done, move the cursor to the next word, 
 
@@ -164,14 +170,45 @@ function splitText(inputText: string) {
 }
 
 function changeWord() {
-    const d = Date.now()
-    timeArray.push(d)
-    charPos = 0
-    wordPos++
+    const time = Date.now()
+    timeArray.push(time)
+    // alert(timeArray)
+    if (wordPos + 1 < textArray.length) {
+        charPos = 0
+        wordPos++
+    } else {
+        completed = true
+    }
 }
 
+function aggregateAccruacy() {
+    // I felt smart when I wrote this leet code lookin code, ok?
+    let falseCounter = accuracy.filter(item => item == 0).length
+    let trueCounter = accuracy.filter(item => item == 1).length
+
+    return  ((1 - falseCounter / trueCounter)*100).toFixed(2)
+}
+
+function aggregateWPM(){
+    let diffArray = []
+    let msAverage = 0
+
+    //skip first item in loop
+    //this is a for loop instead of a .map() because I need 'i'
+    for(let i = 1; i < timeArray.length; i++){
+        diffArray.push(timeArray[i] - timeArray[i-1])
+    }
+
+    //inline average the values in diffArray
+    // I felt smart when I wrote this leet code lookin code, ok?
+    diffArray.filter(item => msAverage += item/diffArray.length)
+    return (60/(msAverage/1000)).toFixed(2)
+    
+}
+
+//components
 function Text({ inputText, pressedKeys }: { inputText: string, pressedKeys: never[] }) {
-    let textArray: string[] = splitText(text)
+
     let output: React.JSX.Element[] = []
 
     if (pressedKeys.includes(textArray[wordPos][charPos])) {
@@ -187,7 +224,12 @@ function Text({ inputText, pressedKeys }: { inputText: string, pressedKeys: neve
             let loopOutput: React.JSX.Element[] = []
             for (let j = 0; j < textArray[i].length; j++) {
                 if (j == charPos) {
-                    loopOutput.push(<div className='bg-blue-300'>{textArray[i][j]}</div>)
+                    if(alreadyWrong == true){
+                        loopOutput.push(<div className='bg-red-300'>{textArray[i][j]}</div>)
+
+                    }else{
+                        loopOutput.push(<div className='bg-blue-300'>{textArray[i][j]}</div>)
+                    }
                 } else {
                     loopOutput.push(<div className='bg-gray-200'>{textArray[i][j]}</div>)
                 }
@@ -243,15 +285,11 @@ function Row({ list, pressedKeys, inputText }: { list: string[][], pressedKeys: 
     for (let item of list) {
         if ((pressedKeys.includes(item[0]) || pressedKeys.includes(item[0].toUpperCase()) || pressedKeys.includes(item[0].toLowerCase() || pressedKeys.includes(item[1])) && item.includes(textArray[wordPos][charPos]))) {
             keys.push(
-                <Key color={"red"} item={item} />
-            )
-        } else if ((item.includes(textArray[wordPos][charPos]) || item.includes(textArray[wordPos][charPos].toLowerCase())) && pressedKeys.includes(item[0])) {
-            <Key color={"green"} item={item} />
-
-        }
-        else if (item.includes(textArray[wordPos][charPos]) || item.includes(textArray[wordPos][charPos].toLowerCase())) {
-            keys.push(
                 <Key color={"blue"} item={item} />
+            )
+        } else if (item.includes(textArray[wordPos][charPos]) || item.includes(textArray[wordPos][charPos].toLowerCase())) {
+            keys.push(
+                <Key color={"green"} item={item} />
             )
         } else {
             keys.push(
@@ -268,5 +306,56 @@ function Row({ list, pressedKeys, inputText }: { list: string[][], pressedKeys: 
 
     )
 
+}
+
+function KeyboardDisplay(pressedKeys: never[]) {
+    return (
+        <div className='mt-20'>
+            <div className='whitespace-pre-wrap bg-gray-200 p-5 mb-5 w-3/4 mx-auto rounded-md border border-gray-300'>
+                <Text inputText={text} pressedKeys={pressedKeys} />
+            </div>
+
+            <div className='max-w-7xl mx-auto p-auto'>
+                <div className='mx-auto flex justify-center'>
+                    <Row list={row1} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+                <div className='mx-auto flex justify-center pt-1'>
+                    <Row list={row2} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+                <div className='mx-auto flex justify-center pt-1'>
+                    <Row list={row3} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+                <div className='mx-auto flex justify-center pt-1'>
+                    <Row list={row4} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+                <div className='mx-auto flex justify-center pt-1'>
+                    <Row list={row5} pressedKeys={pressedKeys} inputText={text} />
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function EndScreen() {
+    const accuracyPercentage = aggregateAccruacy()
+    const accuracyData = accuracy.map(item => (<div>{item}</div>))
+    
+    const wpmAverage = aggregateWPM()
+    return (
+        <div>
+            <div>
+                Level Completed
+            </div>
+
+            <div>
+                <div>
+                    Accuracy: {accuracyPercentage}%
+                </div>
+                <div>
+                    Average WPM: {wpmAverage}
+                </div>
+            </div>
+        </div>
+    )
 }
 export default app
