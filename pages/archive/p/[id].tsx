@@ -1,6 +1,6 @@
 import React from "react"
 import { GetServerSideProps } from "next"
-import prisma from '../../lib/prisma';
+import prisma from '../../../lib/prisma';
 
 export type PostProps = {
     id: string;
