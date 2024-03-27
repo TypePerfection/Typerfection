@@ -1,6 +1,6 @@
 // creation of signup/login page
 import React from 'react';
-import SignUp from '../../components/auth/signUp'; // Import your SignUp component
+import SignUp from '../../../components/auth/signUp'; // Import your SignUp component
 
 const App = () => {
   return (
