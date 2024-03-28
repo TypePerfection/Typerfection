@@ -96,13 +96,13 @@ const app = () => {
     //The React DOM chooses when to update, based on updates it senses. 
     //While not explicetly stated, React DOM should update every time a key is pressed. 
     //Sometimes the DOM does not update when you tell it to, but our app should not have issues with that.
+    //who am I kidding, nobody will read this :/
     useEffect(() => {
         const handleKeyDown = (event) => {
             const { key } = event;
             if (!pressedKeys.includes(key)) {
                 setPressedKeys((prevPressedKeys) => [...prevPressedKeys, key])
                 checkAccuracy(key)
-                // alert(key)
             }
         };
 
@@ -169,7 +169,7 @@ function splitText(inputText: string) {
 function changeWord() {
     const time = Date.now()
     timeArray.push(time)
-    // alert(timeArray)
+
     if (wordPos + 1 < textArray.length) {
         charPos = 0
         wordPos++
@@ -189,17 +189,19 @@ function aggregateWPM() {
     let diffArray = []
     let msAverage = 0
 
-    //skip first item in loop
-    //this is a for loop instead of a .map() because I need 'i'
+    // i = 1 so that we skip the first item in diffarray
+    //I used a for loop insead of the filter or map methods because I need the current index
     for (let i = 1; i < timeArray.length; i++) {
+        //find the 
         diffArray.push(timeArray[i] - timeArray[i - 1])
+
     }
 
     //inline average the values in diffArray
     // I felt smart when I wrote this leet code lookin code, ok?
     diffArray.filter(item => msAverage += item / diffArray.length)
-    return (60 / (msAverage / 1000)).toFixed(2)
 
+    return (60 / (msAverage / 1000)).toFixed(2)
 }
 
 //components
@@ -338,9 +340,11 @@ function EndScreen() {
 
     const wpmAverage = aggregateWPM()
     const router = useRouter()
+
     function reload(){
         router.reload()
     }
+
     return (
         <div>
             <div>
