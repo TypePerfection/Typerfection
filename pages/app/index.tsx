@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { Router, useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 
-// const text = "Bacon ipsum dolor amet picanha ut duis minim ea, proident in short loin sint fugiat alcatra do ball tip labore. Cupim ham hock short loin ground round sed irure, pork chop minim porchetta voluptate. Nostrud consectetur ham culpa id tri-tip turducken ribeye magna reprehenderit velit meatloaf beef. Do nisi in doner porchetta aute, ullamco tri-tip kielbasa picanha."
+const text = "Bacon ipsum dolor amet picanha ut duis minim ea, proident in short loin sint fugiat alcatra do ball tip labore. Cupim ham hock short loin ground round sed irure, pork chop minim porchetta voluptate. Nostrud consectetur ham culpa id tri-tip turducken ribeye magna reprehenderit velit meatloaf beef. Do nisi in doner porchetta aute, ullamco tri-tip kielbasa picanha."
 
-const text = "Bacon ipsum dolor amet"
+// const text = "Bacon ipsum dolor amet"
 let textArray: string[] = splitText(text)
 
 const row1 = [
@@ -84,6 +84,9 @@ var timeArray: any = []
 //when a user presses a key, check if that is the right key. 
 var accuracy: number[] = []
 var alreadyWrong: boolean = false
+
+var wpm = 0;
+var accuracyPercent = 0
 
 const app = () => {
 
@@ -173,6 +176,8 @@ function changeWord() {
     if (wordPos + 1 < textArray.length) {
         charPos = 0
         wordPos++
+        wpm = aggregateWPM()
+        accuracyPercent = aggregateAccruacy()
     } else {
         completed = true
     }
@@ -309,8 +314,19 @@ function Row({ list, pressedKeys, inputText }: { list: string[][], pressedKeys: 
 function KeyboardDisplay(pressedKeys: never[]) {
     return (
         <div className='mt-20'>
+            <div>
+            </div>
             <div className='whitespace-pre-wrap bg-gray-200 p-5 mb-5 w-3/4 mx-auto rounded-md border border-gray-300'>
                 <Text inputText={text} pressedKeys={pressedKeys} />
+                <div className='pt-2 flex gap-2'>
+                    <div>
+                        WPM: {wpm}
+
+                    </div>
+                    <div>
+                        Accuracy: {accuracyPercent}
+                    </div>
+                </div>
             </div>
 
             <div className='max-w-7xl mx-auto p-auto'>
@@ -340,8 +356,7 @@ function EndScreen() {
 
     const wpmAverage = aggregateWPM()
     const router = useRouter()
-
-    function reload(){
+    function reload() {
         router.reload()
     }
 
