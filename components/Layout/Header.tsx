@@ -10,8 +10,8 @@ const Header: React.FC = () => {
     const { data: session, status } = useSession();
 
     const links: { title: string; url: string; }[] = [
-        { title: "Levels", url: "/learn" },
-        { title: "Archive", url: "/archive" },
+        { title: "Browse", url: "/learn" },
+
 
     ]
     const image = "/keyboard.svg";
@@ -56,8 +56,9 @@ const Header: React.FC = () => {
                 <Link href="/">
                     <img src={image} className="h-10"></img>
                 </Link>
-
-                {linkList}
+                <div className="pl-2">
+                    {linkList}
+                </div>
             </div>
             <div className="flex mx-auto">
                 {right}
