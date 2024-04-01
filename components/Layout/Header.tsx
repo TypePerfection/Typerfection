@@ -10,8 +10,8 @@ const Header: React.FC = () => {
     const { data: session, status } = useSession();
 
     const links: { title: string; url: string; }[] = [
-        { title: "App", url: "./app" },
-        { title: "Archive", url: "./archive" },
+        { title: "Levels", url: "/learn" },
+        { title: "Archive", url: "/archive" },
 
     ]
     const image = "/keyboard.svg";

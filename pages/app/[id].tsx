@@ -2,11 +2,20 @@ import Layout from '@/components/Layout/Layout';
 import Link from 'next/link';
 import { Router, useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
+import prisma from '../../lib/prisma';
+import { GetServerSideProps } from "next"
+import { Session } from 'inspector';
+import { SessionProvider } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
-const text = "Bacon ipsum dolor amet picanha ut duis minim ea, proident in short loin sint fugiat alcatra do ball tip labore. Cupim ham hock short loin ground round sed irure, pork chop minim porchetta voluptate. Nostrud consectetur ham culpa id tri-tip turducken ribeye magna reprehenderit velit meatloaf beef. Do nisi in doner porchetta aute, ullamco tri-tip kielbasa picanha."
+//oof
 
-// const text = "Bacon ipsum dolor amet"
-let textArray: string[] = splitText(text)
+
+
+export type TestText = {
+    id: string;
+    paragraph: string;
+}
 
 const row1 = [
     ['`', '~'],
@@ -88,7 +97,30 @@ var alreadyWrong: boolean = false
 var wpm = 0;
 var accuracyPercent = 0
 
-const app = () => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+
+    const text = await prisma.testingText.findUnique({
+        where: {
+            id: String(params?.id),
+        },
+    });
+
+    if (!text) {
+        return {
+            notFound: true, // Return a 404 page
+        };
+    }
+    return {
+        props: text,
+    };
+
+    
+}
+
+const App: React.FC<TestText> = (props) => {
+    var text = props.paragraph
+    var textArray: string[] = splitText(text)
+    const { data: session, status } = useSession();
 
     const [pressedKeys, setPressedKeys] = useState([])
 
@@ -123,6 +155,8 @@ const app = () => {
         };
 
         function checkAccuracy(key: any) {
+        let textArray: string[] = splitText(text)
+
             const specialKeys = ['Shift', 'CapsLock']
             if (!specialKeys.includes(key)) {
                 if (textArray[wordPos][charPos] == key) {
@@ -148,8 +182,11 @@ const app = () => {
 
     let output = null
     if (!completed) {
-        output = KeyboardDisplay(pressedKeys)
+        output = KeyboardDisplay(pressedKeys, text)
     } else {
+        if(session){
+            submitData(props.id, session.user?.email, aggregateAccruacy(), aggregateWPM())
+        }
         output = EndScreen()
     }
 
@@ -158,20 +195,33 @@ const app = () => {
             {output}
         </Layout>
     )
+
+    async function submitData (textId: string, userEmail: any, accuracy: any, wpm: any){
+        try {
+            const body = { textId, userEmail, accuracy, wpm };
+            await fetch('/api/completed', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(body),
+            });
+            // await Router.push('/drafts');
+          } catch (error) {
+            console.error(error);
+          }
+
+    }
 }
 
-//? The plan
-// Split the words up, with sentence ends keeping their punctuation as part of their "word", and a space.
-// Keep track of which word the user is on, then use the cursorPos to track which char they are on.
-// When a word is done, move the cursor to the next word, 
+
 
 function splitText(inputText: string) {
     return inputText.split(' ').map(word => word + ' ')
 }
 
-function changeWord() {
+function changeWord(text) {
     const time = Date.now()
     timeArray.push(time)
+    let textArray: string[] = splitText(text)
 
     if (wordPos + 1 < textArray.length) {
         charPos = 0
@@ -211,14 +261,14 @@ function aggregateWPM() {
 
 //components
 function Text({ inputText, pressedKeys }: { inputText: string, pressedKeys: never[] }) {
-
+    let textArray: string[] = splitText(inputText)
     let output: React.JSX.Element[] = []
 
     if (pressedKeys.includes(textArray[wordPos][charPos])) {
         if (charPos < textArray[wordPos].length - 1) {
             charPos++
         } else {
-            changeWord()
+            changeWord(inputText)
         }
     }
 
@@ -250,8 +300,6 @@ function Text({ inputText, pressedKeys }: { inputText: string, pressedKeys: neve
         </div>
     )
 }
-
-// TODO Restyle this, it looks like trash (I want to get the logic down rn)
 
 function Row({ list, pressedKeys, inputText }: { list: string[][], pressedKeys: never[], inputText: string }) {
     let keys = []
@@ -311,13 +359,13 @@ function Row({ list, pressedKeys, inputText }: { list: string[][], pressedKeys: 
 
 }
 
-function KeyboardDisplay(pressedKeys: never[]) {
+function KeyboardDisplay(pressedKeys: never[], text:string) {
     return (
         <div className='mt-20'>
             <div>
             </div>
             <div className='whitespace-pre-wrap bg-gray-200 p-5 mb-5 w-3/4 mx-auto rounded-md border border-gray-300'>
-                <Text inputText={text} pressedKeys={pressedKeys} />
+                <Text inputText={text} pressedKeys={pressedKeys}/>
                 <div className='pt-2 flex gap-2'>
                     <div>
                         WPM: {wpm}
@@ -360,6 +408,8 @@ function EndScreen() {
         router.reload()
     }
 
+    
+
     return (
         <div>
             <div>
@@ -380,4 +430,4 @@ function EndScreen() {
         </div>
     )
 }
-export default app
+export default App
