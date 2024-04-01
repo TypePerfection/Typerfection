@@ -54,7 +54,7 @@ const Header: React.FC = () => {
         <nav className='flex w-full bg-violet-600 top-0 sticky justify-around h-12'>
             <div className="flex w-full gap-2">
                 <Link href="/">
-                    <img src={image} className="h-10"></img>
+                    <img src={image} alt = "Logo" className="h-10"></img>
                 </Link>
 
                 {linkList}
