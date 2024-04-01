@@ -10,8 +10,8 @@ const Header: React.FC = () => {
     const { data: session, status } = useSession();
 
     const links: { title: string; url: string; }[] = [
-        { title: "App", url: "./app" },
-        { title: "Archive", url: "./archive" },
+        { title: "Browse", url: "/learn" },
+
 
     ]
     const image = "/keyboard.svg";
@@ -34,7 +34,7 @@ const Header: React.FC = () => {
     if (!session) {
         right = (
             <div>
-                <Link href="./api/auth/signin" className="hover:bg-slate-50 h-full flex text-white hover:text-violet-600 mr-4 pt-1 m-auto text-xl font-mono">
+                <Link href="/api/auth/signin" className="hover:bg-slate-50 h-full flex text-white hover:text-violet-600 mr-4 pt-1 m-auto text-xl font-mono">
                     Login
                 </Link>
             </div>
@@ -43,8 +43,10 @@ const Header: React.FC = () => {
     if (session) {
         right = (
             <div className="flex">
-                <Link href="./account" className="h-full hover:bg-slate-50 w-full flex text-white hover:text-violet-600 mr-4 pt-1 m-auto text-xl font-mono">
-                    {session.user?.name}
+                <Link href="/account" className="h-full hover:bg-slate-50 w-full flex text-white hover:text-violet-600 mr-4 pt-1 m-auto text-xl font-mono">
+                    <div className="pt-1">
+                        {session.user?.name}
+                    </div>
                 </Link>
             </div>
         )
@@ -56,12 +58,12 @@ const Header: React.FC = () => {
                 <Link href="/">
                     <img src={image} alt = "Logo" className="h-10"></img>
                 </Link>
-
-                {linkList}
+                <div className="pl-2">
+                    {linkList}
+                </div>
             </div>
-            <div className="flex mx-auto">
+            <div className="flex">
                 {right}
-
             </div>
         </nav>
     )

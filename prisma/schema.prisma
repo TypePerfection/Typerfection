@@ -57,6 +57,7 @@ model User {
   posts         Post[]
   accounts      Account[]
   sessions      Session[]
+  completedStages   CompletedTestingText[]
   }
 
 model VerificationToken {
@@ -74,10 +75,27 @@ model TestingText {
   levelId   String
   level     Level  @relation(fields: [levelId], references: [id])
   paragraph String
+  completions CompletedTestingText[]
 }
 
 model Level {
   id    String        @id @default(cuid())
   name  String
   texts TestingText[]
+}
+
+model CompletedTestingText {
+  id  String  @id @default(cuid())
+
+  userId  String  @map("user_id")
+  user User @relation(fields:[userId], references:[id], onDelete: Cascade)
+
+  testingTextId  String
+  testingText TestingText @relation(fields: [testingTextId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  accuracy Decimal
+  wpm Decimal
+
 }
