@@ -34,7 +34,7 @@ const Header: React.FC = () => {
     if (!session) {
         right = (
             <div>
-                <Link href="./api/auth/signin" className="hover:bg-slate-50 h-full flex text-white hover:text-violet-600 mr-4 pt-1 m-auto text-xl font-mono">
+                <Link href="/api/auth/signin" className="hover:bg-slate-50 h-full flex text-white hover:text-violet-600 mr-4 pt-1 m-auto text-xl font-mono">
                     Login
                 </Link>
             </div>
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
     if (session) {
         right = (
             <div className="flex">
-                <Link href="./account" className="h-full hover:bg-slate-50 w-full flex text-white hover:text-violet-600 mr-4 pt-1 m-auto text-xl font-mono">
+                <Link href="/account" className="h-full hover:bg-slate-50 w-full flex text-white hover:text-violet-600 mr-4 pt-1 m-auto text-xl font-mono">
                     {session.user?.name}
                 </Link>
             </div>

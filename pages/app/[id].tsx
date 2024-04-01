@@ -113,8 +113,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     return {
         props: text,
     };
-
-    
 }
 
 const App: React.FC<TestText> = (props) => {

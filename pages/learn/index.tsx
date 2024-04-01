@@ -37,8 +37,7 @@ type Props = {
 
 
 const Blog: React.FC<Props> = (levels) => {
-    let output = null
-    output = levels.feed.map((level) => (
+    let output = levels.feed.map((level) => (
         <div className="border-t mx-2">
             <div>{level.name}</div>
             <div className="flex gap-2">
