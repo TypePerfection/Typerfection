@@ -49,6 +49,7 @@ npx prisma generate
 ``` 
 
 ## Contributers
-Ethan Chalupa 
-Derek Ludlow
-Dawson Bauman
+- Ethan Chalupa 
+- Rylan Jurgens
+- Derek Ludlow
+- Dawson Bauman
