@@ -44,7 +44,9 @@ const Header: React.FC = () => {
         right = (
             <div className="flex">
                 <Link href="/account" className="h-full hover:bg-slate-50 w-full flex text-white hover:text-violet-600 mr-4 pt-1 m-auto text-xl font-mono">
-                    {session.user?.name}
+                    <div className="pt-1">
+                        {session.user?.name}
+                    </div>
                 </Link>
             </div>
         )
@@ -60,9 +62,8 @@ const Header: React.FC = () => {
                     {linkList}
                 </div>
             </div>
-            <div className="flex mx-auto">
+            <div className="flex">
                 {right}
-
             </div>
         </nav>
     )
