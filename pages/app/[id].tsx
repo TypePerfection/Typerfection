@@ -454,7 +454,7 @@ function KeyboardDisplay(pressedKeys: never[], text:string) {
 
 function EndScreen() {
     const accuracyPercentage = aggregateAccruacy()
-    const accuracyData = accuracy.map(item => (<div>{item}</div>))
+    const accuracyData = accuracy.map(item => (<div key={item}>{item}</div>))
 
     const wpmAverage = aggregateWPM()
     const router = useRouter()
