@@ -54,7 +54,7 @@ type Props = {
 
 const App: React.FC<Props> = (list) => {
     let row = list.feed.map((thing) => (
-        <tr>
+        <tr key={thing.accuracy + thing.wpm}>
             <td className="border-r-2 border-t-2 w-60">
                 {thing.date}
             </td>

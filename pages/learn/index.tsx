@@ -39,7 +39,7 @@ type Props = {
 const Blog: React.FC<Props> = (levels) => {
     let stupidCounter = 1;
     let output = levels.feed.map((level) => (
-        <div className="border-t mx-2">
+        <div className="border-t mx-2" key={level.id}>
             <div>{level.name}</div>
             <div className="flex gap-2">
                 {level.texts.map((text) => (
