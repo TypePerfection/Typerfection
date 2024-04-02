@@ -10,8 +10,8 @@ const Header: React.FC = () => {
     const { data: session, status } = useSession();
 
     const links: { title: string; url: string; }[] = [
-        { title: "Browse", url: "/learn" },
-
+        { title: "Levels", url: "/learn" },
+        { title: "Stats", url: "/stats" },
 
     ]
     const image = "/keyboard.svg";
@@ -44,9 +44,7 @@ const Header: React.FC = () => {
         right = (
             <div className="flex">
                 <Link href="/account" className="h-full hover:bg-slate-50 w-full flex text-white hover:text-violet-600 mr-4 pt-1 m-auto text-xl font-mono">
-                    <div className="pt-1">
-                        {session.user?.name}
-                    </div>
+                    {session.user?.name}
                 </Link>
             </div>
         )
@@ -56,14 +54,14 @@ const Header: React.FC = () => {
         <nav className='flex w-full bg-violet-600 top-0 sticky justify-around h-12'>
             <div className="flex w-full gap-2">
                 <Link href="/">
-                    <img src={image} alt = "Logo" className="h-10"></img>
+                    <img src={image} className="h-10"></img>
                 </Link>
-                <div className="pl-2">
-                    {linkList}
-                </div>
+
+                {linkList}
             </div>
-            <div className="flex">
+            <div className="flex mx-auto">
                 {right}
+
             </div>
         </nav>
     )
