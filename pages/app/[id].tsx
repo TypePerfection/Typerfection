@@ -44,7 +44,7 @@ const row2: Array<[string]> = [
     [']', '}']
 ];
 
-const row3: Array<[string]> = [
+const row3: Array<[string] | [string, string]> = [
     ['a'],
     ['s'],
     ['d'],
@@ -59,7 +59,7 @@ const row3: Array<[string]> = [
     ['\\', '|']
 ];
 
-const row4: Array<[string]> = [
+const row4: Array<[string] | [string, string]> = [
     ['z'],
     ['x'],
     ['c'],
