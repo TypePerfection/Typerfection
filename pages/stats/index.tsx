@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
 import { SessionProvider } from 'next-auth/react';
 import Layout from "@/components/Layout/Layout";
-import XButton from "@/components/Inputs/XButton";
 import { GetServerSideProps } from "next"
 import prisma from '../../lib/prisma';
 import { GetStaticProps } from "next"
