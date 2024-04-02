@@ -205,10 +205,10 @@ function changeWord(text: string) {
 }
 
 function aggregateAccruacy(): number {
-    const falseCounter = accuracy.filter(item => item === 0).length;
-    const trueCounter = accuracy.filter(item => item === 1).length;
+    const falseCounter: number = accuracy.filter(item => item === 0).length;
+    const trueCounter: number = accuracy.filter(item => item === 1).length;
 
-    return ((1 - falseCounter / trueCounter) * 100);
+    return Number(((1 - falseCounter / trueCounter) * 100).toFixed(2));
 }
 
 function aggregateWPM(): number {
@@ -221,7 +221,7 @@ function aggregateWPM(): number {
 
     diffArray.forEach(item => msAverage += item / diffArray.length);
 
-    return (60 / (msAverage / 1000));
+    return Number((60 / (msAverage / 1000)).toFixed(2))
 }
 
 // Components
