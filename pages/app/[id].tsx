@@ -29,7 +29,7 @@ const row1: Array<[string, string]> = [
     ['=', '+']
 ];
 
-const row2: Array<[string]> = [
+const row2: Array<[string] | [string, string]> = [
     ['q'],
     ['w'],
     ['e'],
