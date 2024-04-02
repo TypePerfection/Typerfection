@@ -129,7 +129,6 @@ const App: React.FC<TestText> = (props) => {
     //The React DOM chooses when to update, based on updates it senses. 
     //While not explicetly stated, React DOM should update every time a key is pressed. 
     //Sometimes the DOM does not update when you tell it to, but our app should not have issues with that.
-    //who am I kidding, nobody will read this :/
     useEffect(() => {
         const handleKeyDown = (event) => {
             const { key } = event;
@@ -356,6 +355,63 @@ function Row({ list, pressedKeys, inputText }: { list: string[][], pressedKeys: 
     )
 
 }
+function SpaceRow({ list, pressedKeys, inputText }: { list: string[][], pressedKeys: never[], inputText: string }) {
+    let keys = []
+    let textArray = splitText(inputText)
+
+    function Key({ color = '', item }) {
+        const colorsList = [
+            ['', "rounded-md w-10 border border-1 border-gray-400 bg-gray-200 w-40 text-center"],
+            ["red", "rounded-md w-10 border border-1 border-gray-400 bg-red-300 w-40 text-center"],
+            ["blue", "rounded-md w-10 border border-1 border-gray-400 bg-blue-300 w-40 text-center"],
+            ["green", "rounded-md w-10 border border-1 border-gray-400 bg-green-300 w-40 text-center"],
+        ]
+        var cssTemplate = ""
+
+        for (const item of colorsList) {
+            if (item[0] == color) {
+                cssTemplate = item[1]
+            }
+        }
+
+        return (
+            <div key={item[0]} className={cssTemplate}>
+                <div className='flex justify-end'>
+                    {item[1]}
+                </div>
+
+                <div className='pl-1'>
+                    {item[0]}
+                </div>
+            </div>
+        )
+    }
+
+    for (let item of list) {
+        if ((pressedKeys.includes(item[0]) || pressedKeys.includes(item[0].toUpperCase()) || pressedKeys.includes(item[0].toLowerCase() || pressedKeys.includes(item[1])) && item.includes(textArray[wordPos][charPos]))) {
+            keys.push(
+                <Key color={"blue"} item={item} />
+            )
+        } else if (item.includes(textArray[wordPos][charPos]) || item.includes(textArray[wordPos][charPos].toLowerCase())) {
+            keys.push(
+                <Key color={"green"} item={item} />
+            )
+        } else {
+            keys.push(
+                <Key item={item} />
+
+            )
+        }
+    }
+    return (
+
+        <div className='flex gap-2 mx-auto'>
+            {keys}
+        </div>
+
+    )
+
+}
 
 function KeyboardDisplay(pressedKeys: never[], text:string) {
     return (
@@ -389,7 +445,7 @@ function KeyboardDisplay(pressedKeys: never[], text:string) {
                     <Row list={row4} pressedKeys={pressedKeys} inputText={text} />
                 </div>
                 <div className='mx-auto flex justify-center pt-1'>
-                    <Row list={row5} pressedKeys={pressedKeys} inputText={text} />
+                    <SpaceRow list={row5} pressedKeys={pressedKeys} inputText={text} />
                 </div>
             </div>
         </div>
