@@ -19,7 +19,7 @@ function Account() {
 
     return (
         <Layout>
-            <div>
+            <div >
                 <div className="flex gap-1">
                     <div className="border-r-2 border-t-2 w-20">
                         Name:
@@ -27,13 +27,13 @@ function Account() {
                     <h1>{session?.user?.name}</h1>
                 </div>
                 <div className="flex gap-1">
-                    <div className="border-r-2 border-t-2 w-20">
+                    <div className="border-r-2 border-y-2 w-20">
                         Email:
                     </div>
                     <h1>{session?.user?.email}</h1>
                 </div>
                 <div className="pt-2">
-                    <XButton onClick={() => signOut()} text="Log Out" />
+                    <button className=" bg-violet-600 text-white p-2 rounded-md font-mono mt-2" onClick={() => signOut()}>Log out </button>
                 </div>
             </div>
         </Layout>
