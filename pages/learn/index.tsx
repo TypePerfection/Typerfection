@@ -45,7 +45,7 @@ const Blog: React.FC<Props> = (levels) => {
                 {level.texts.map((text) => (
                     <div key={text.id} className="post">
                         <div onClick={() => Router.push("/app/[id]", `/app/${text.id}`)}>
-                            <div className="bg-gray-300 p-2 w-20 rounded-md border border-gray-400 text-center">
+                            <div className="bg-gray-300 p-2 w-20 rounded-md border border-gray-400 text-center mb-2">
                                 Stage {stupidCounter++}{/* I am the dumbest programmer ever */}
                             </div>
                         </div>
