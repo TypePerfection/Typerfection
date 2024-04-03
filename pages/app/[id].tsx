@@ -11,12 +11,13 @@ import { signOut, useSession } from 'next-auth/react';
 //oof
 
 
-
+// Define the type for the test text
 export type TestText = {
     id: string;
     paragraph: string;
 }
 
+// Define the keyboard rows
 const row1 = [
     ['`', '~'],
     ['1', '!'],
@@ -97,6 +98,7 @@ var alreadyWrong: boolean = false
 var wpm = 0;
 var accuracyPercent = 0
 
+// Get test text data from server
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
     const text = await prisma.testingText.findUnique({
@@ -111,7 +113,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         };
     }
     return {
-        props: text,
+        props: text, // Retrurn test text data as props
     };
 }
 
@@ -168,9 +170,11 @@ const App: React.FC<TestText> = (props) => {
             }
         }
 
+        // Event listeners for keydown and keyup events
         document.addEventListener('keydown', handleKeyDown);
         document.addEventListener('keyup', handleKeyUp);
 
+        // Cleanup to remove event listeners
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
             document.removeEventListener('keyup', handleKeyUp);
@@ -210,11 +214,12 @@ const App: React.FC<TestText> = (props) => {
 }
 
 
-
+// Function to split text into words
 function splitText(inputText: string) {
     return inputText.split(' ').map(word => word + ' ')
 }
 
+// Function to change to the next word
 function changeWord(text) {
     const time = Date.now()
     timeArray.push(time)
@@ -230,6 +235,7 @@ function changeWord(text) {
     }
 }
 
+// Calculate the words per minute
 function aggregateAccruacy() {
     let falseCounter = accuracy.filter(item => item == 0).length
     let trueCounter = accuracy.filter(item => item == 1).length
@@ -242,33 +248,35 @@ function aggregateWPM() {
     let msAverage = 0
 
     // i = 1 so that we skip the first item in diffarray
-    //I used a for loop insead of the filter or map methods because I need the current index
+    // I used a for loop insead of the filter or map methods because I need the current index
     for (let i = 1; i < timeArray.length; i++) {
-        //find the 
+        // Find the difference between current and previous time
         diffArray.push(timeArray[i] - timeArray[i - 1])
 
     }
 
-    //inline average the values in diffArray
+    // Inline average the values in diffArray
     // I felt smart when I wrote this leet code lookin code, ok?
     diffArray.filter(item => msAverage += item / diffArray.length)
 
     return (60 / (msAverage / 1000)).toFixed(2)
 }
 
-//components
+// Components to display text and position of cursor
 function Text({ inputText, pressedKeys }: { inputText: string, pressedKeys: never[] }) {
     let textArray: string[] = splitText(inputText)
     let output: React.JSX.Element[] = []
 
+    // Checks if the pressed key matches the current character.
     if (pressedKeys.includes(textArray[wordPos][charPos])) {
-        if (charPos < textArray[wordPos].length - 1) {
+        if (charPos < textArray[wordPos].length - 1) { // If the word is not finished, move to the next character.
             charPos++
         } else {
-            changeWord(inputText)
+            changeWord(inputText) // If the word is finished, move to the next word
         }
     }
 
+    // Determines the color of the cursor
     for (let i = 0; i < textArray.length; i++) {
         if (i == wordPos) {
             let loopOutput: React.JSX.Element[] = []
@@ -330,6 +338,7 @@ function Row({ list, pressedKeys, inputText }: { list: string[][], pressedKeys: 
         )
     }
 
+    // Iterate through the list of keys and render them
     for (let item of list) {
         if ((pressedKeys.includes(item[0]) || pressedKeys.includes(item[0].toUpperCase()) || pressedKeys.includes(item[0].toLowerCase() || pressedKeys.includes(item[1])) && item.includes(textArray[wordPos][charPos]))) {
             keys.push(
@@ -413,6 +422,7 @@ function SpaceRow({ list, pressedKeys, inputText }: { list: string[][], pressedK
 
 }
 
+// Function to display the keyboard and user typing statistics 
 function KeyboardDisplay(pressedKeys: never[], text:string) {
     return (
         <div className='mt-20'>
@@ -452,13 +462,14 @@ function KeyboardDisplay(pressedKeys: never[], text:string) {
     )
 }
 
+//Function to display the results of the typing test
 function EndScreen() {
     const accuracyPercentage = aggregateAccruacy()
     const accuracyData = accuracy.map(item => (<div key={item}>{item}</div>))
 
     const wpmAverage = aggregateWPM()
     const router = useRouter()
-    function reload() {
+    function reload() { // Reload test if retry button is pressed
         router.reload()
     }
 
