@@ -1,12 +1,19 @@
 # Overview
 
-{Provide a description of your team project.  Describe how to use the software.}
+Our team has created a web application to help people of all ages and skill levels practice, keep track of, and improve their typing skills. Typerfection has 5 different courses with 5 different levels of generated text paragraphs in each course to aid improvement in typing prowess. With each progressive level, the generated text gets increasingly more difficult. The application features a keyboard display that helps the user to keep track of which letter they should type next, and highlights different colors when you type a letter either correctly or incorrectly. It also tracks and stores data from your typing, like how long it takes you to complete and your WPM(words per minute) so you can track your improvement over time. So, go sign up today and start using typerfection to help improve your typing skills!
 
 # Development Environment
 
-{Describe the tools that you used to develop the software}
+NodeJs - Host for Next.js to handle HTML and API requests. Allows for easy development with the help of NPM(package manager) and node modules.
+NextJs - Handles HTML and API requests, determines file structure for project, compiles Tailwind CSS and Typescript, allows for server rendering, and middleware allows code to be run before server renders a page.
+React - Main typescript library used in the project. Enables re-usable components that split up elements, helps to create more dynamic web applications.
+Postgresql - Database that we used to store user data, save session tokens, and implement user authorization/login.
+Prisma ORM - Runs thread on Node.js server to interface with our Postgresql database. Automatically generates SQL CRUD(create, read, update, delete) code from object map that we created. Offers better security for potential SQL injection.
+Tailwind CSS - Allowed for inline CSS which provided much cleaner and more simplified code, along with premade CSS classes to simplifiy repetitive classes.
+NextAuth - Handles user sessions, generates and stores session tokens, stores tokens in database.
 
-{Describe the programming language that you used and any libraries.}
+
+We used Typescript almost exclusively for this project! React was the predominant library we used, along with a few others including NextAuth.
 
 # Collaborators
 - Ethan Chalupa 
@@ -15,57 +22,12 @@
 - Dawson Bauman
 
 # Useful Websites
-
-{Make a list of websites that you found helpful in this project}
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-
 - [Next.js - Prisma docs](https://vercel.com/guides/nextjs-prisma-postgres)
+- [Stack Overflow](https://stackoverflow.com/)
 
 # Future Work
-
-* Item 1
-* Item 2
-* Item 3
-
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Troubleshooting
-
-If you have a missing dependency or file run 
-
-```Bash
-npm install
-```
-
-To sync the database to prisma schema, run
-
-```bash
-prisma migrate dev
-```
-
-To open the prisma studio run 
-
-```bash
-npx prisma studio
-```
-
-Prisma client is the prisma interface on the next.js server, it needs to be installed
-```bash
-npm install @prisma/client
-or
-npm install
-```
-
-and updated every time you update the schema
-```bash
-npx prisma generate
-``` 
+(Things we would add with continued development)
+* Improve visual appeal/graphic design and fluidity of use with more front-end tweaking and development.
+* Find API to integrate or another way to randomly generate the text so it could be slightly different each time
+* Improve level difficulty progression to make it more uniform throughout each course
